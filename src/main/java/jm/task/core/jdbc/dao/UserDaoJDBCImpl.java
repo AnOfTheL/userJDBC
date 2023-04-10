@@ -27,7 +27,7 @@ public class UserDaoJDBCImpl implements UserDao {
                     + "   age       INTEGER)";
 
             statement.executeUpdate(sqlCreate);
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
