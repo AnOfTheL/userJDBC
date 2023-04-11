@@ -7,6 +7,8 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.cfg.Environment;
 import org.hibernate.service.ServiceRegistry;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.Properties;
@@ -21,6 +23,7 @@ public class Util {
     private static final String PASS  = "postgres";
     private static final String DRIVER  = "org.postgresql.Driver";
 
+    private static ServiceRegistry serviceRegistry;
     private static Connection connection;
     private static SessionFactory sessionFactory;
 
@@ -40,6 +43,8 @@ public class Util {
             try {
                 Configuration configuration = new Configuration();
 
+                return configuration.buildSessionFactory();
+                /*
                 // Hibernate settings equivalent to hibernate.cfg.xml's properties
                 Properties settings = new Properties();
                 settings.put(Environment.DRIVER, DRIVER);
@@ -52,11 +57,12 @@ public class Util {
 
                 configuration.setProperties(settings);
                 configuration.addAnnotatedClass(User.class);
+                */
 
-                ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
-                        .applySettings(configuration.getProperties()).build();
+                //configuration.addResource("hibernate.properties");
+                //ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
+                //        .applySettings(configuration.getProperties()).build();
 
-                sessionFactory = configuration.buildSessionFactory(serviceRegistry);
             } catch (Exception e) {
                 System.out.println("Connection Failed\n" + e);
             }

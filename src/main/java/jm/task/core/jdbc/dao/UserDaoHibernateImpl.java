@@ -27,10 +27,10 @@ public class UserDaoHibernateImpl implements UserDao {
                     + "   age       integer)";
 
             transaction = session.beginTransaction();
-            Query query = session.createSQLQuery(sqlCreate).addEntity(User.class);
+            session.createSQLQuery(sqlCreate);
             //query.setParameter();
             transaction.commit();
-            session.close();
+            //session.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -38,13 +38,13 @@ public class UserDaoHibernateImpl implements UserDao {
 
     @Override
     public void dropUsersTable() {
+        Transaction transaction;
         try (Session session = Util.getSessionFactory().openSession())
         {
             String sqlDrop = "drop table if exists userss";
-            session.beginTransaction();
+            transaction = session.beginTransaction();
             session.createSQLQuery(sqlDrop);
-            session.getTransaction().commit();
-            session.close();
+            transaction.commit();
         } catch (Exception e) {
             e.printStackTrace();
         }
