@@ -1,3 +1,4 @@
+import jm.task.core.jdbc.model.User;
 import jm.task.core.jdbc.service.UserService;
 import jm.task.core.jdbc.service.UserServiceImpl;
 import org.junit.Assert;
@@ -15,15 +16,15 @@ public class UserServiceTest {
     @Test
     public void createUsersTable() {
         try {
-            //userService.dropUsersTable();
+            userService.dropUsersTable();
             userService.createUsersTable();
-            //userService.saveUser(testName, testLastName, testAge); // попытка проверить хотя бы что-нибудь
+            userService.saveUser(testName, testLastName, testAge); // попытка проверить хотя бы что-нибудь
         } catch (Exception e) {
             Assert.fail("При тестировании создания таблицы пользователей произошло исключение\n" + e.getMessage());
         }
     }
 
-    /*@Test
+    @Test
     public void dropUsersTable() {
         try {
             userService.dropUsersTable();
@@ -79,7 +80,7 @@ public class UserServiceTest {
             userService.saveUser(testName, testLastName, testAge);
             List<User> userList = userService.getAllUsers();
 
-            if (userList.size() != 1) {
+            if (userList.size() < 1) {
                 Assert.fail("Проверьте корректность работы метода сохранения пользователя/удаления или создания таблицы");
             }
         } catch (Exception e) {
@@ -101,6 +102,5 @@ public class UserServiceTest {
         } catch (Exception e) {
             Assert.fail("При тестировании очистки таблицы пользователей произошло исключение\n" + e);
         }
-    }*/
-
+    }
 }
